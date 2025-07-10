@@ -4,374 +4,161 @@ export default function Home() {
   return (
     <main>
       {/* Hero Section */}
-      <section
-        className="hero"
-        style={{
-          textAlign: "center",
-          padding: "2.5rem 2rem",
-          background: "linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%)",
-          marginBottom: "1rem",
-        }}
-      >
-        <h1
-          style={{
-            fontSize: "2rem",
-            fontWeight: "bold",
-            color: "#1e40af",
-            marginBottom: "0.8rem",
-          }}
-        >
-          Hệ thống hỗ trợ phòng ngừa sử dụng ma túy
-        </h1>
-        <p
-          style={{
-            fontSize: "1rem",
-            color: "#64748b",
-            marginBottom: "1.5rem",
-            maxWidth: "500px",
-            margin: "0 auto 1.5rem",
-          }}
-        >
-          Dịch vụ tư vấn, hỗ trợ và giáo dục chuyên nghiệp
-        </p>
-        <button
-          style={{
-            backgroundColor: "#2563eb",
-            color: "white",
-            padding: "12px 24px",
-            borderRadius: "8px",
-            border: "none",
-            fontSize: "1rem",
-            fontWeight: "600",
-            cursor: "pointer",
-          }}
-        >
-          Khám phá dịch vụ →
-        </button>
+      <section className="bg-primary text-white text-center py-5">
+        <div className="container">
+          <div className="row justify-content-center">
+            <div className="col-lg-10">
+              <p className="lead mb-4 fs-5">
+                Chúng tôi cung cấp dịch vụ tư vấn tâm lý, giáo dục nhận thức và hỗ trợ phục hồi toàn diện. 
+                Đồng hành cùng bạn và gia đình trong hành trình xây dựng cuộc sống tích cực, 
+                khỏe mạnh và tránh xa tệ nạn xã hội.
+              </p>
+              <div className="d-flex justify-content-center gap-3 flex-wrap">
+                <button className="btn btn-light btn-lg px-4 py-2 fw-semibold">
+                  🚀 Bắt đầu hành trình
+                </button>
+                <button className="btn btn-outline-light btn-lg px-4 py-2 fw-semibold">
+                  📞 Liên hệ tư vấn
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
       </section>
-      {/* Services Grid - 2 rows layout */}
-      <section
-        style={{
-          padding: "2rem",
-          display: "grid",
-          gridTemplateColumns: "repeat(3, 1fr)",
-          gridTemplateRows: "repeat(2, 1fr)",
-          gap: "1rem",
-          width: "100%",
-        }}
-      >
-        {/* Row 1 */}
-        <div className="card" style={{ textAlign: "center", padding: "2rem" }}>
-          <div
-            style={{
-              width: "60px",
-              height: "60px",
-              backgroundColor: "#dbeafe",
-              borderRadius: "15px",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              margin: "0 auto 1rem",
-              fontSize: "28px",
-            }}
-          >
-            📅
-          </div>
-          <h3
-            style={{
-              fontSize: "1.2rem",
-              marginBottom: "1rem",
-              color: "#1f2937",
-            }}
-          >
-            Lịch hẹn
-          </h3>
-          <p
-            style={{
-              fontSize: "0.95rem",
-              marginBottom: "1.5rem",
-              color: "#6b7280",
-              lineHeight: "1.5",
-            }}
-          >
-            Đặt lịch hẹn với chuyên gia tư vấn dễ dàng và nhanh chóng
-          </p>
-          <button
-            style={{
-              width: "100%",
-              padding: "12px 24px",
-              backgroundColor: "transparent",
-              color: "#2563eb",
-              border: "2px solid #e5e7eb",
-              borderRadius: "10px",
-              cursor: "pointer",
-              fontSize: "0.95rem",
-              fontWeight: "500",
-            }}
-          >
-            Đặt lịch ngay →
-          </button>
-        </div>
 
-        <div className="card" style={{ textAlign: "center", padding: "2rem" }}>
-          <div
-            style={{
-              width: "60px",
-              height: "60px",
-              backgroundColor: "#dbeafe",
-              borderRadius: "15px",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              margin: "0 auto 1rem",
-              fontSize: "28px",
-            }}
-          >
-            ♡
-          </div>
-          <h3
-            style={{
-              fontSize: "1.2rem",
-              marginBottom: "1rem",
-              color: "#1f2937",
-            }}
-          >
-            Tư vấn
-          </h3>
-          <p
-            style={{
-              fontSize: "0.95rem",
-              marginBottom: "1.5rem",
-              color: "#6b7280",
-              lineHeight: "1.5",
-            }}
-          >
-            Nhận tư vấn chuyên nghiệp từ đội ngũ chuyên gia kinh nghiệm
-          </p>
-          <button
-            style={{
-              width: "100%",
-              padding: "12px 24px",
-              backgroundColor: "transparent",
-              color: "#10b981",
-              border: "2px solid #e5e7eb",
-              borderRadius: "10px",
-              cursor: "pointer",
-              fontSize: "0.95rem",
-              fontWeight: "500",
-            }}
-          >
-            Tư vấn ngay →
-          </button>
-        </div>
+      {/* Services Grid - 6 cards in 2 rows */}
+      <section className="py-5 bg-light">
+        <div className="container">
+          <div className="row g-4">
+            {/* Row 1 */}
+            <div className="col-md-4">
+              <div className="card h-100 shadow-sm text-center">
+                <div className="card-body p-4">
+                  <div className="bg-primary bg-opacity-10 rounded-3 d-inline-flex align-items-center justify-content-center mb-3">
+                    <span className="fs-1 p-3">📅</span>
+                  </div>
+                  <h5 className="card-title text-dark mb-3">Lịch hẹn</h5>
+                  <p className="card-text text-muted mb-4">
+                    Đặt lịch hẹn với chuyên gia tư vấn dễ dàng và nhanh chóng
+                  </p>
+                  <button className="btn btn-outline-primary w-100 fw-semibold">
+                    Đặt lịch ngay →
+                  </button>
+                </div>
+              </div>
+            </div>
 
-        <div className="card" style={{ textAlign: "center", padding: "2rem" }}>
-          <div
-            style={{
-              width: "60px",
-              height: "60px",
-              backgroundColor: "#dbeafe",
-              borderRadius: "15px",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              margin: "0 auto 1rem",
-              fontSize: "28px",
-            }}
-          >
-            📖
-          </div>
-          <h3
-            style={{
-              fontSize: "1.2rem",
-              marginBottom: "1rem",
-              color: "#1f2937",
-            }}
-          >
-            Khóa học
-          </h3>
-          <p
-            style={{
-              fontSize: "0.95rem",
-              marginBottom: "1.5rem",
-              color: "#6b7280",
-              lineHeight: "1.5",
-            }}
-          >
-            Tham gia các khóa học giáo dục và nâng cao nhận thức
-          </p>
-          <button
-            style={{
-              width: "100%",
-              padding: "12px 24px",
-              backgroundColor: "transparent",
-              color: "#7c3aed",
-              border: "2px solid #e5e7eb",
-              borderRadius: "10px",
-              cursor: "pointer",
-              fontSize: "0.95rem",
-              fontWeight: "500",
-            }}
-          >
-            Xem khóa học →
-          </button>
-        </div>
+            <div className="col-md-4">
+              <div className="card h-100 shadow-sm text-center">
+                <div className="card-body p-4">
+                  <div className="bg-success bg-opacity-10 rounded-3 d-inline-flex align-items-center justify-content-center mb-3">
+                    <span className="fs-1 p-3">💝</span>
+                  </div>
+                  <h5 className="card-title text-dark mb-3">Tư vấn</h5>
+                  <p className="card-text text-muted mb-4">
+                    Nhận tư vấn chuyên nghiệp từ đội ngũ chuyên gia kinh nghiệm
+                  </p>
+                  <button className="btn btn-outline-success w-100 fw-semibold">
+                    Tư vấn ngay →
+                  </button>
+                </div>
+              </div>
+            </div>
 
-        {/* Row 2 */}
-        <div className="card" style={{ textAlign: "center", padding: "2rem" }}>
-          <div
-            style={{
-              width: "60px",
-              height: "60px",
-              backgroundColor: "#dbeafe",
-              borderRadius: "15px",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              margin: "0 auto 1rem",
-              fontSize: "28px",
-            }}
-          >
-            📋
-          </div>
-          <h3
-            style={{
-              fontSize: "1.2rem",
-              marginBottom: "1rem",
-              color: "#1f2937",
-            }}
-          >
-            Tài liệu
-          </h3>
-          <p
-            style={{
-              fontSize: "0.95rem",
-              marginBottom: "1.5rem",
-              color: "#6b7280",
-              lineHeight: "1.5",
-            }}
-          >
-            Truy cập thư viện tài liệu phong phú và cập nhật
-          </p>
-          <button
-            style={{
-              width: "100%",
-              padding: "12px 24px",
-              backgroundColor: "transparent",
-              color: "#ea580c",
-              border: "2px solid #e5e7eb",
-              borderRadius: "10px",
-              cursor: "pointer",
-              fontSize: "0.95rem",
-              fontWeight: "500",
-            }}
-          >
-            Xem tài liệu →
-          </button>
-        </div>
+            <div className="col-md-4">
+              <div className="card h-100 shadow-sm text-center">
+                <div className="card-body p-4">
+                  <div className="bg-warning bg-opacity-10 rounded-3 d-inline-flex align-items-center justify-content-center mb-3">
+                    <span className="fs-1 p-3">📚</span>
+                  </div>
+                  <h5 className="card-title text-dark mb-3">Khóa học</h5>
+                  <p className="card-text text-muted mb-4">
+                    Tham gia các khóa học giáo dục và nâng cao nhận thức
+                  </p>
+                  <button className="btn btn-outline-warning w-100 fw-semibold">
+                    Xem khóa học →
+                  </button>
+                </div>
+              </div>
+            </div>
 
-        <div className="card" style={{ textAlign: "center", padding: "2rem" }}>
-          <div
-            style={{
-              width: "60px",
-              height: "60px",
-              backgroundColor: "#dbeafe",
-              borderRadius: "15px",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              margin: "0 auto 1rem",
-              fontSize: "28px",
-            }}
-          >
-            🤝
-          </div>
-          <h3
-            style={{
-              fontSize: "1.2rem",
-              marginBottom: "1rem",
-              color: "#1f2937",
-            }}
-          >
-            Cộng đồng
-          </h3>
-          <p
-            style={{
-              fontSize: "0.95rem",
-              marginBottom: "1.5rem",
-              color: "#6b7280",
-              lineHeight: "1.5",
-            }}
-          >
-            Kết nối và chia sẻ kinh nghiệm với cộng đồng hỗ trợ
-          </p>
-          <button
-            style={{
-              width: "100%",
-              padding: "12px 24px",
-              backgroundColor: "transparent",
-              color: "#ec4899",
-              border: "2px solid #e5e7eb",
-              borderRadius: "10px",
-              cursor: "pointer",
-              fontSize: "0.95rem",
-              fontWeight: "500",
-            }}
-          >
-            Tham gia →
-          </button>
-        </div>
+            {/* Row 2 */}
+            <div className="col-md-4">
+              <div className="card h-100 shadow-sm text-center">
+                <div className="card-body p-4">
+                  <div className="bg-info bg-opacity-10 rounded-3 d-inline-flex align-items-center justify-content-center mb-3">
+                    <span className="fs-1 p-3">📄</span>
+                  </div>
+                  <h5 className="card-title text-dark mb-3">Tài liệu</h5>
+                  <p className="card-text text-muted mb-4">
+                    Truy cập thư viện tài liệu phong phú
+                  </p>
+                  <button className="btn btn-outline-info w-100 fw-semibold">
+                    Xem tài liệu →
+                  </button>
+                </div>
+              </div>
+            </div>
 
-        <div className="card" style={{ textAlign: "center", padding: "2rem" }}>
-          <div
-            style={{
-              width: "60px",
-              height: "60px",
-              backgroundColor: "#dbeafe",
-              borderRadius: "15px",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              margin: "0 auto 1rem",
-              fontSize: "28px",
-            }}
-          >
-            💬
+            <div className="col-md-4">
+              <div className="card h-100 shadow-sm text-center">
+                <div className="card-body p-4">
+                  <div className="bg-secondary bg-opacity-10 rounded-3 d-inline-flex align-items-center justify-content-center mb-3">
+                    <span className="fs-1 p-3">🤝</span>
+                  </div>
+                  <h5 className="card-title text-dark mb-3">Cộng đồng</h5>
+                  <p className="card-text text-muted mb-4">
+                    Kết nối và chia sẻ kinh nghiệm
+                  </p>
+                  <button className="btn btn-outline-secondary w-100 fw-semibold">
+                    Tham gia →
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div className="col-md-4">
+              <div className="card h-100 shadow-sm text-center">
+                <div className="card-body p-4">
+                  <div className="bg-danger bg-opacity-10 rounded-3 d-inline-flex align-items-center justify-content-center mb-3">
+                    <span className="fs-1 p-3">💬</span>
+                  </div>
+                  <h5 className="card-title text-dark mb-3">Hỗ trợ 24/7</h5>
+                  <p className="card-text text-muted mb-4">
+                    Đường dây nóng hỗ trợ 24/7
+                  </p>
+                  <button className="btn btn-outline-danger w-100 fw-semibold">
+                    Liên hệ ngay →
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
-          <h3
-            style={{
-              fontSize: "1.2rem",
-              marginBottom: "1rem",
-              color: "#1f2937",
-            }}
-          >
-            Hỗ trợ 24/7
-          </h3>
-          <p
-            style={{
-              fontSize: "0.95rem",
-              marginBottom: "1.5rem",
-              color: "#6b7280",
-              lineHeight: "1.5",
-            }}
-          >
-            Đường dây nóng hỗ trợ 24/7
-          </p>
-          <button
-            style={{
-              width: "100%",
-              padding: "12px 24px",
-              backgroundColor: "transparent",
-              color: "#dc2626",
-              border: "2px solid #e5e7eb",
-              borderRadius: "10px",
-              cursor: "pointer",
-              fontSize: "0.95rem",
-              fontWeight: "500",
-            }}
-          >
-            Liên hệ ngay →
-          </button>
+        </div>
+      </section>
+
+      {/* Call to Action Section */}
+      <section className="bg-dark text-white py-5">
+        <div className="container">
+          <div className="row justify-content-center text-center">
+            <div className="col-lg-8">
+              <h2 className="display-6 fw-bold mb-3">
+                💪 Hãy mạnh mẽ chọn lựa tương lai tươi sáng
+              </h2>
+              <p className="lead mb-4">
+                Mọi hành trình đều bắt đầu từ một bước đi. Chúng tôi sẵn sàng đồng hành cùng bạn 
+                trong việc xây dựng cuộc sống tích cực và khỏe mạnh.
+              </p>
+              <div className="d-flex justify-content-center gap-3 flex-wrap">
+                <button className="btn btn-primary btn-lg px-4 fw-semibold">
+                  🔐 Đăng nhập hệ thống
+                </button>
+                <button className="btn btn-outline-light btn-lg px-4 fw-semibold">
+                  📝 Tạo tài khoản mới
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
     </main>
