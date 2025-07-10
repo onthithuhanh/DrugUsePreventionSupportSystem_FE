@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 // import "./globals.css";
 import "./assets/lib/bootstrap/dist/css/bootstrap.min.css"
+import "tailwindcss";
 import "./assets/css/styles.css";
 import "./assets/css/site.css";
 
@@ -47,7 +48,7 @@ children,
             marginBottom: "0.8rem",
           }}
         >
-          Hệ thống hỗ trợ <br/> Phòng ngừa sử dụng ma túy
+         🛡️ Hệ thống hỗ trợ <br/> Phòng ngừa sử dụng ma túy
         </h1>
         <nav>
           <Link href="/">Trang chủ</Link>
