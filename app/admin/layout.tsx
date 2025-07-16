@@ -1,12 +1,34 @@
 "use client";
 import { Layout, Menu } from "antd";
 import Link from "next/link";
+import UserNav from "@/components/UserNav";
 
 const { Sider, Content } = Layout;
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   return (
     <Layout style={{ minHeight: "100vh" }}>
+      <header>
+        <h1
+          style={{
+            fontSize: "2rem",
+            fontWeight: "bold",
+            color: "#fafbfc",
+            marginBottom: "0.8rem",
+          }}
+        >
+          🛡️ Hệ thống hỗ trợ <br /> Phòng ngừa sử dụng ma túy
+        </h1>
+        <nav>
+          <Link href="/">Trang chủ</Link>
+          <Link href="/appointments">Lịch hẹn</Link>
+          <Link href="/">Tư vấn</Link>
+          <Link href="/courses">Khóa học</Link>
+          <Link href="/">Tài liệu</Link>
+          <Link href="/">Cộng đồng</Link>
+          <UserNav />
+        </nav>
+      </header>
       <Sider breakpoint="lg" collapsedWidth="0">
         <div style={{ color: "white", fontWeight: "bold", fontSize: 22, padding: 16, textAlign: "center" }}>
           Admin Panel

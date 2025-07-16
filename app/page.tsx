@@ -1,3 +1,4 @@
+import UserNav from "@/components/UserNav";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -22,7 +23,7 @@ export default function Home() {
           <Link href="/courses">Khóa học</Link>
           <Link href="/">Tài liệu</Link>
           <Link href="/">Cộng đồng</Link>
-          <Link href="/auth">Đăng nhập</Link>
+          <UserNav />
         </nav>
       </header>
       {/* Hero Section */}

@@ -136,4 +136,8 @@ export const authApi = {
         const response = await api.delete(`/RiskLevel/Delete/${id}`);
         return response.data;
     },
+    getMyProfile: async () => {
+        const response = await api.get('/User/MyProfile');
+        return response.data;
+    },
 }; 

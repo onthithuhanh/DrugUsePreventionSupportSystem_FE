@@ -1,10 +1,12 @@
 
-import Link from "next/link";
+import Link from "next/link"; 
+import UserNav from "@/components/UserNav";
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
-}>) {
+}>) { 
   return (
     <div>
       <header>
@@ -25,7 +27,7 @@ export default function RootLayout({
           <Link href="/courses">Khóa học</Link>
           <Link href="/">Tài liệu</Link>
           <Link href="/">Cộng đồng</Link>
-          <Link href="/auth">Đăng nhập</Link>
+          <UserNav />
         </nav>
       </header>
       <div>
