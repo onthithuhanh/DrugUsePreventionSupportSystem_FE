@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Inter } from "next/font/google";
 // import "./globals.css";
 import "./assets/lib/bootstrap/dist/css/bootstrap.min.css"
 import "tailwindcss";
@@ -7,6 +7,9 @@ import "./assets/css/styles.css";
 import "./assets/css/site.css";
 
 import Link from "next/link";
+import { Suspense } from "react";
+import { ThemeProvider } from "@/components/theme-provider";
+import { Toaster } from "@/components/ui/toaster";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -17,6 +20,7 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
+const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -29,43 +33,15 @@ children,
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <head>
-        <link 
-          rel="stylesheet" 
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-          integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
-          crossOrigin="anonymous"
-          referrerPolicy="no-referrer"
-        />
-      </head>
-      <header>
-       <h1
-          style={{
-            fontSize: "2rem",
-            fontWeight: "bold",
-            color: "#fafbfc",
-            marginBottom: "0.8rem",
-          }}
-        >
-         🛡️ Hệ thống hỗ trợ <br/> Phòng ngừa sử dụng ma túy
-        </h1>
-        <nav>
-          <Link href="/">Trang chủ</Link>
-          <Link href="/appointments">Lịch hẹn</Link>
-          <Link href="/">Tư vấn</Link>
-          <Link href="/courses">Khóa học</Link>
-          <Link href="/">Tài liệu</Link>
-          <Link href="/">Cộng đồng</Link>          
-          <Link href="/auth">Đăng nhập</Link>
-        </nav>
-      </header>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        {children}        
+    <html lang="vi" suppressHydrationWarning>
+      <body  suppressHydrationWarning>
+        <Suspense fallback={null}>
+          <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
+            {children}
+            {/* <Toaster /> */}
+          </ThemeProvider>
+        </Suspense>
       </body>
-      <footer>
-        <p>&copy; 2025 Drug-Free Path. All rights reserved.</p>
-      </footer>
     </html>
   );
 }

@@ -15,7 +15,7 @@ export default function auth() {
         event.preventDefault();
         try {
             const response = await authApi.login({email, password})
-            localStorage.setItem("user", JSON.stringify(response)) 
+            localStorage.setItem("user", response) 
             //console.log(response)               
             router.push("/")   
         } catch (error) {            

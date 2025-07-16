@@ -1,16 +1,38 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
   return (
-    <main>
+    <main> 
+      <header>
+        <h1
+          style={{
+            fontSize: "2rem",
+            fontWeight: "bold",
+            color: "#fafbfc",
+            marginBottom: "0.8rem",
+          }}
+        >
+          🛡️ Hệ thống hỗ trợ <br /> Phòng ngừa sử dụng ma túy
+        </h1>
+        <nav>
+          <Link href="/">Trang chủ</Link>
+          <Link href="/appointments">Lịch hẹn</Link>
+          <Link href="/">Tư vấn</Link>
+          <Link href="/courses">Khóa học</Link>
+          <Link href="/">Tài liệu</Link>
+          <Link href="/">Cộng đồng</Link>
+          <Link href="/auth">Đăng nhập</Link>
+        </nav>
+      </header>
       {/* Hero Section */}
       <section className="bg-primary text-white text-center py-5">
         <div className="container">
           <div className="row justify-content-center">
             <div className="col-lg-10">
               <p className="lead mb-4 fs-5">
-                Chúng tôi cung cấp dịch vụ tư vấn tâm lý, giáo dục nhận thức và hỗ trợ phục hồi toàn diện. 
-                Đồng hành cùng bạn và gia đình trong hành trình xây dựng cuộc sống tích cực, 
+                Chúng tôi cung cấp dịch vụ tư vấn tâm lý, giáo dục nhận thức và hỗ trợ phục hồi toàn diện.
+                Đồng hành cùng bạn và gia đình trong hành trình xây dựng cuộc sống tích cực,
                 khỏe mạnh và tránh xa tệ nạn xã hội.
               </p>
               <div className="d-flex justify-content-center gap-3 flex-wrap">
@@ -75,9 +97,11 @@ export default function Home() {
                   <p className="card-text text-muted mb-4">
                     Tham gia các khóa học giáo dục và nâng cao nhận thức
                   </p>
-                  <button className="btn btn-outline-warning w-100 fw-semibold">
-                    Xem khóa học →
-                  </button>
+                 <Link href={"/course"}>
+                    <button className="btn btn-outline-warning w-100 fw-semibold">
+                      Xem khóa học →
+                    </button>
+                 </Link>
                 </div>
               </div>
             </div>
@@ -110,9 +134,11 @@ export default function Home() {
                   <p className="card-text text-muted mb-4">
                     Kết nối và chia sẻ kinh nghiệm
                   </p>
-                  <button className="btn btn-outline-secondary w-100 fw-semibold">
-                    Tham gia →
-                  </button>
+                  <Link href='/blog'>
+                    <button className="btn btn-outline-secondary w-100 fw-semibold">
+                      Tham gia →
+                    </button>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -146,21 +172,24 @@ export default function Home() {
                 💪 Hãy mạnh mẽ chọn lựa tương lai tươi sáng
               </h2>
               <p className="lead mb-4">
-                Mọi hành trình đều bắt đầu từ một bước đi. Chúng tôi sẵn sàng đồng hành cùng bạn 
+                Mọi hành trình đều bắt đầu từ một bước đi. Chúng tôi sẵn sàng đồng hành cùng bạn
                 trong việc xây dựng cuộc sống tích cực và khỏe mạnh.
               </p>
-              <div className="d-flex justify-content-center gap-3 flex-wrap">
+              {/* <div className="d-flex justify-content-center gap-3 flex-wrap">
                 <button className="btn btn-primary btn-lg px-4 fw-semibold">
                   🔐 Đăng nhập hệ thống
                 </button>
                 <button className="btn btn-outline-light btn-lg px-4 fw-semibold">
                   📝 Tạo tài khoản mới
                 </button>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
       </section>
+      <footer>
+        <p>&copy; 2025 Drug-Free Path. All rights reserved.</p>
+      </footer>
     </main>
   );
 }
