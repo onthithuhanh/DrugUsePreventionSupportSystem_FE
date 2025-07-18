@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { Table, Tag, Typography, Modal, Form, InputNumber, Input, message, Button } from "antd";
 import { authApi } from "@/api/auth";
+import { useToast } from "@/hooks/use-toast";
 
 const { Title } = Typography;
 
@@ -28,6 +29,8 @@ export default function CourseQuestionPage() {
 console.log(answerForm);
 console.log(123,optionForm);
 
+  const { toast } = useToast();
+
   useEffect(() => {
     const fetchQuestions = async () => {
       setLoading(true);
@@ -48,7 +51,7 @@ console.log(123,optionForm);
       setOptionLoading(true);
       const values = await optionForm.validateFields();
       await authApi.updateCourseOption(editingOption.optionId, values);
-      message.success("Đã cập nhật câu trả lời!");
+      toast({ title: "Thành công", description: "Đã cập nhật câu trả lời!" });
       setOptionModalOpen(false);
       setEditingOption(null);
       // reload questions
@@ -56,7 +59,7 @@ console.log(123,optionForm);
       if (!Array.isArray(data)) data = Array.isArray(data?.items) ? data.items : [];
       setQuestions(data || []);
     } catch {
-      message.error("Lỗi khi cập nhật câu trả lời");
+      toast({ title: "Lỗi", description: "Lỗi khi cập nhật câu trả lời", variant: "destructive" });
     } finally {
       setOptionLoading(false);
     }
@@ -71,17 +74,15 @@ console.log(123,optionForm);
     try {
       setAnswerLoading(true);
       const values = await answerForm.validateFields();
-      console.log('Giá trị submit:', values);
-      // Gọi API POST để trả lời mới cho câu hỏi (POST /CourseOption với dữ liệu form và courseId)
       await authApi.createCourseOption(answeringQuestion.questionId, values);
-      message.success("Đã gửi câu trả lời!");
+      toast({ title: "Thành công", description: "Đã gửi câu trả lời!" });
       setAnswerModalOpen(false);
       setAnsweringQuestion(null);
       let data = await authApi.getCourseQuestions();
       if (!Array.isArray(data)) data = Array.isArray(data?.items) ? data.items : [];
       setQuestions(data || []);
     } catch {
-      message.error("Lỗi khi gửi câu trả lời");
+      toast({ title: "Lỗi", description: "Lỗi khi gửi câu trả lời", variant: "destructive" });
     } finally {
       setAnswerLoading(false);
     }

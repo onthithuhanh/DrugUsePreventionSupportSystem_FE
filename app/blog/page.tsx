@@ -1,8 +1,9 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { List, Card, Typography, Skeleton, Avatar } from "antd";
+import { List, Card, Typography, Skeleton, Avatar, Button, Modal, Form, Input, message } from "antd";
 import { authApi } from "@/api/auth";
 import Link from "next/link";
+import { useToast } from "@/hooks/use-toast";
 
 const { Title, Paragraph, Text } = Typography;
 
@@ -19,23 +20,57 @@ interface Blog {
 export default function BlogPage() {
   const [blogs, setBlogs] = useState<Blog[]>([]);
   const [loading, setLoading] = useState(false);
+  const [addModalOpen, setAddModalOpen] = useState(false);
+  const [addLoading, setAddLoading] = useState(false);
+  const [form] = Form.useForm();
+  const { toast } = useToast();
+  const fetchBlogs = async () => {
+    setLoading(true);
+    try {
+      const data = await authApi.getAllApprovedBlogs();
+      setBlogs(data);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const fetchBlogs = async () => {
-      setLoading(true);
-      try {
-        const data = await authApi.getAllApprovedBlogs();
-        setBlogs(data);
-      } finally {
-        setLoading(false);
-      }
-    };
     fetchBlogs();
   }, []);
+
+  const handleAddBlog = () => {
+    form.resetFields();
+    setAddModalOpen(true);
+  };
+  const handleAddOk = async () => {
+    try {
+      const values = await form.validateFields();
+      setAddLoading(true);
+      await authApi.postBlog(values); 
+      setAddModalOpen(false);
+      fetchBlogs();
+      toast({
+        title: "Thành công",
+        description: "Đăng blog thành công ,vui lòng chờ ADMIN duyệt", 
+      });
+    } catch {
+      toast({
+        title: "Lỗi",
+        description: "Lỗi khi gửi blog",
+        variant: "destructive",
+      });
+      console.log(123); 
+    } finally {
+      setAddLoading(false);
+    }
+  };
 
   return (
     <div style={{ maxWidth: 900, margin: "0 auto", padding: "32px 16px" }}>
       <Title level={2} style={{ textAlign: "center", marginBottom: 32 }}>Blog cộng đồng</Title>
+      <div style={{ textAlign: "right", marginBottom: 16 }}>
+        <Button type="primary" onClick={handleAddBlog}>Đăng blog mới</Button>
+      </div>
       <List
         grid={{ gutter: 24, xs: 1, sm: 1, md: 2, lg: 2, xl: 2, xxl: 3 }}
         dataSource={blogs}
@@ -98,6 +133,28 @@ export default function BlogPage() {
           </List.Item>
         )}
       />
+      <Modal
+        open={addModalOpen}
+        title="Đăng blog mới"
+        onCancel={() => setAddModalOpen(false)}
+        onOk={handleAddOk}
+        okText="Đăng"
+        confirmLoading={addLoading}
+        destroyOnClose
+      >
+        <Form
+          form={form}
+          layout="vertical"
+          key={addModalOpen ? 'open' : 'closed'} // Thêm dòng này!
+        >
+          <Form.Item name="title" label="Tiêu đề" rules={[{ required: true, message: "Nhập tiêu đề" }]}>
+            <Input />
+          </Form.Item>
+          <Form.Item name="content" label="Nội dung" rules={[{ required: true, message: "Nhập nội dung" }]}>
+            <Input.TextArea rows={5} />
+          </Form.Item>
+        </Form>
+      </Modal>
     </div>
   );
 } 

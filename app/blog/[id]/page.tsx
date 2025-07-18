@@ -4,6 +4,7 @@ import { useParams } from "next/navigation";
 import { Card, Typography, Skeleton, Avatar, Button, List, Input, Form, Popconfirm, message } from "antd";
 import { authApi } from "@/api/auth";
 import Link from "next/link";
+import { useToast } from "@/hooks/use-toast";
 
 const { Title, Paragraph, Text } = Typography;
 
@@ -35,6 +36,7 @@ export default function BlogDetailPage() {
   const [form] = Form.useForm();
   const [editingId, setEditingId] = useState<number | null>(null);
   const [editingContent, setEditingContent] = useState("");
+  const { toast } = useToast();
 
   useEffect(() => {
     if (!id) return;
@@ -65,13 +67,13 @@ export default function BlogDetailPage() {
     setSubmitting(true);
     try {
       await authApi.createComment(Number(id), values.content);
-      message.success("Đã thêm bình luận!");
+      toast({ title: "Thành công", description: "Đã thêm bình luận!" });
       form.resetFields();
       let data = await authApi.getCommentsByBlogId(Number(id));
       if (!Array.isArray(data)) data = Array.isArray(data?.items) ? data.items : [];
       setComments(data || []);
     } catch {
-      message.error("Lỗi khi thêm bình luận");
+      toast({ title: "Lỗi", description: "Lỗi khi thêm bình luận", variant: "destructive" });
     } finally {
       setSubmitting(false);
     }
@@ -85,26 +87,26 @@ export default function BlogDetailPage() {
   const handleUpdateComment = async (commentId: number) => {
     try {
       await authApi.updateComment(commentId, editingContent);
-      message.success("Đã cập nhật bình luận!");
+      toast({ title: "Thành công", description: "Đã cập nhật bình luận!" });
       setEditingId(null);
       setEditingContent("");
       let data = await authApi.getCommentsByBlogId(Number(id));
       if (!Array.isArray(data)) data = Array.isArray(data?.items) ? data.items : [];
       setComments(data || []);
     } catch {
-      message.error("Lỗi khi cập nhật bình luận");
+      toast({ title: "Lỗi", description: "Lỗi khi cập nhật bình luận", variant: "destructive" });
     }
   };
 
   const handleDeleteComment = async (commentId: number) => {
     try {
       await authApi.deleteComment(commentId);
-      message.success("Đã xóa bình luận!");
+      toast({ title: "Thành công", description: "Đã xóa bình luận!" });
       let data = await authApi.getCommentsByBlogId(Number(id));
       if (!Array.isArray(data)) data = Array.isArray(data?.items) ? data.items : [];
       setComments(data || []);
     } catch {
-      message.error("Lỗi khi xóa bình luận");
+      toast({ title: "Lỗi", description: "Lỗi khi xóa bình luận", variant: "destructive" });
     }
   };
 

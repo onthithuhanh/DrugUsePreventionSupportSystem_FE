@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { Table, Button, Modal, Form, Input, Space, Popconfirm, message, Typography } from "antd";
 import { authApi } from "@/api/auth";
+import { useToast } from "@/hooks/use-toast";
 
 const { Title } = Typography;
 
@@ -17,6 +18,7 @@ export default function RiskLevelAdminPage() {
   const [modalOpen, setModalOpen] = useState(false);
   const [editing, setEditing] = useState<RiskLevel | null>(null);
   const [form] = Form.useForm();
+  const { toast } = useToast();
 
   const fetchData = async () => {
     setLoading(true);
@@ -24,7 +26,7 @@ export default function RiskLevelAdminPage() {
       const res = await authApi.getAllRiskLevels();
       setData(Array.isArray(res) ? res : res.items || []);
     } catch {
-      message.error("Lỗi tải dữ liệu");
+      toast({ title: "Lỗi", description: "Lỗi tải dữ liệu", variant: "destructive" });
     } finally {
       setLoading(false);
     }
@@ -50,10 +52,10 @@ export default function RiskLevelAdminPage() {
     if (!id) return;
     try {
       await authApi.deleteRiskLevel(id);
-      message.success("Đã xóa thành công");
+      toast({ title: "Thành công", description: "Đã xóa thành công" });
       fetchData();
     } catch {
-      message.error("Xóa thất bại");
+      toast({ title: "Lỗi", description: "Xóa thất bại", variant: "destructive" });
     }
   };
 
@@ -62,10 +64,10 @@ export default function RiskLevelAdminPage() {
       const values = await form.validateFields();
       if (editing && editing.riskId) {
         await authApi.updateRiskLevel(editing.riskId, values);
-        message.success("Cập nhật thành công");
+        toast({ title: "Thành công", description: "Cập nhật thành công" });
       } else {
         await authApi.createRiskLevel(values);
-        message.success("Thêm mới thành công");
+        toast({ title: "Thành công", description: "Thêm mới thành công" });
       }
       setModalOpen(false);
       setEditing(null); // <-- thêm dòng này

@@ -1,13 +1,15 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Card, Descriptions, Skeleton, message } from "antd";
+import { Card, Descriptions, Skeleton } from "antd";
 import { authApi } from "@/api/auth";
+import { useToast } from "@/hooks/use-toast";
 
 export default function ProfilePage() {
   const [profile, setProfile] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
+  const { toast } = useToast();
 
   useEffect(() => {
     const userStr = typeof window !== "undefined" ? localStorage.getItem("user") : null;
@@ -21,7 +23,7 @@ export default function ProfilePage() {
         const data = await authApi.getMyProfile();
         setProfile(data);
       } catch (err) {
-        message.error("Không thể tải thông tin cá nhân");
+        toast({ title: "Lỗi", description: "Không thể tải thông tin cá nhân", variant: "destructive" });
       } finally {
         setLoading(false);
       }

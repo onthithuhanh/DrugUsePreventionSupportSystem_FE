@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { Table, Button, message, Popconfirm } from "antd";
 import { authApi } from "@/api/auth"; 
+import { useToast } from "@/hooks/use-toast";
 
 interface Blog {
   blogId: number;
@@ -16,9 +17,9 @@ interface Blog {
 export default function BlogAdminPage() {
   const [blogs, setBlogs] = useState<Blog[]>([]);
   const [loading, setLoading] = useState(false);
+  const { toast } = useToast();
 
-  useEffect(() => {
-    message.success("Đã chấp nhận blog!");
+  useEffect(() => { 
 
     const fetchBlogs = async () => {
       setLoading(true);
@@ -35,20 +36,20 @@ export default function BlogAdminPage() {
   const handleApprove = async (id: number) => {
     try {
       await authApi.approveBlog(id);
-      message.success("Đã chấp nhận blog!");
+      toast({ title: "Thành công", description: "Đã chấp nhận blog!" });
       reload();
     } catch {
-      message.error("Lỗi khi chấp nhận blog");
+      toast({ title: "Lỗi", description: "Lỗi khi chấp nhận blog", variant: "destructive" });
     }
   };
 
   const handleReject = async (id: number) => {
     try {
       await authApi.rejectBlog(id);
-      message.success("Đã từ chối blog!");
+      toast({ title: "Thành công", description: "Đã từ chối blog!" });
       reload();
     } catch {
-      message.error("Lỗi khi từ chối blog");
+      toast({ title: "Lỗi", description: "Lỗi khi từ chối blog", variant: "destructive" });
     }
   };
 

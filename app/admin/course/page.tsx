@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { Table, Button, Modal, Form, Input, Select, message, Popconfirm, Typography, Space } from "antd";
 import { authApi } from "@/api/auth";
+import { useToast } from "@/hooks/use-toast";
 
 const { Title } = Typography;
 
@@ -39,6 +40,8 @@ export default function CourseAdminPage() {
   const [addCourseForm] = Form.useForm();
   const [editCourseForm] = Form.useForm();
   const [courseLoading, setCourseLoading] = useState(false);
+
+  const { toast } = useToast();
 
   // LOAD DATA
   useEffect(() => {
@@ -79,10 +82,10 @@ export default function CourseAdminPage() {
       const values = await catForm.validateFields();
       if (catEdit) {
         await authApi.updateCourseCategory(catEdit.categoryId, values);
-        message.success("Đã cập nhật thể loại!");
+        toast({ title: "Thành công", description: "Đã cập nhật thể loại!" });
       } else {
         await authApi.createCourseCategory(values);
-        message.success("Đã thêm thể loại!");
+        toast({ title: "Thành công", description: "Đã thêm thể loại!" });
       }
       setCatModalOpen(false);
       fetchCategories();
@@ -108,7 +111,7 @@ export default function CourseAdminPage() {
       const submitValues = { ...values, category: values.categoryId };
   
       await authApi.createCourse(submitValues);
-      message.success("Đã thêm khóa học!");
+      toast({ title: "Thành công", description: "Đã thêm khóa học!" });
       setAddCourseModalOpen(false);
       fetchCourses();
     } catch {}
@@ -120,7 +123,7 @@ export default function CourseAdminPage() {
      
       if (editCourse) {
         await authApi.updateCourse(editCourse.courseId, submitValues);
-        message.success("Đã cập nhật khóa học!");
+        toast({ title: "Thành công", description: "Đã cập nhật khóa học!" });
       }
       setEditCourseModalOpen(false);
       fetchCourses();
@@ -128,7 +131,7 @@ export default function CourseAdminPage() {
   };
   const handleDeleteCourse = async (id: number) => {
     await authApi.deleteCourse(id);
-    message.success("Đã xóa khóa học!");
+    toast({ title: "Thành công", description: "Đã xóa khóa học!" });
     fetchCourses();
   };
 

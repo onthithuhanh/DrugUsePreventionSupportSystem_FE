@@ -6,7 +6,8 @@ export interface LoginRequest {
 }
 
 export interface RegisterData extends LoginRequest {
-    name: string;
+    fullName: string;
+    address: string; 
 }
 
 export const authApi = {
@@ -18,7 +19,7 @@ export const authApi = {
     },
 
     register: async (data: RegisterData) => {
-        const response = await api.post('/Auth/register', data);
+        const response = await api.post('/User/Register', data);
         return response.data;
     },
 
@@ -138,6 +139,10 @@ export const authApi = {
     },
     getMyProfile: async () => {
         const response = await api.get('/User/MyProfile');
+        return response.data;
+    },
+    postBlog: async (data: { title: string; content: string }) => {
+        const response = await api.post('/Blog/Post-blog', data);
         return response.data;
     },
 }; 

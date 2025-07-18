@@ -2,12 +2,16 @@
 import React, { SyntheticEvent, useState } from 'react'
 import { useRouter } from "next/navigation"
 import Link from 'next/link'
+import { useToast } from "@/hooks/use-toast";
+import { authApi } from "@/api/auth";
 
 export default function Register() {
     const router = useRouter()    
+    const { toast } = useToast();
     const [authMessage, setAuthMessage] = useState("")
     const [formData, setFormData] = useState({
         fullName: "",
+        address: "",
         email: "",
         password: "",
         confirmPassword: "",
@@ -28,25 +32,35 @@ export default function Register() {
         
         // Validate passwords match
         if (formData.password !== formData.confirmPassword) {
-            setAuthMessage("Mật khẩu xác nhận không khớp")
-            return
+            toast({ title: "Lỗi", description: "Mật khẩu xác nhận không khớp", variant: "destructive" });
+            return;
         }
 
         // Validate password length
         if (formData.password.length < 6) {
-            setAuthMessage("Mật khẩu phải có ít nhất 6 ký tự")
-            return
+            toast({ title: "Lỗi", description: "Mật khẩu phải có ít nhất 6 ký tự", variant: "destructive" });
+            return;
         }
 
+        // Validate required fields
+        if (!formData.fullName || !formData.email || !formData.password || !formData.dateOfBirth || !formData.address) {
+            toast({ title: "Lỗi", description: "Vui lòng nhập đầy đủ thông tin", variant: "destructive" });
+            return;
+        }
+ 
+       
+
         try {
-            // Here you would call your registration API
-            // const response = await authApi.register(formData)
-            console.log("Registration data:", formData)
-            setAuthMessage("Đăng ký thành công! Vui lòng đăng nhập.")
-            // router.push("/auth")
-        } catch (error) {            
-            setAuthMessage("Đăng ký thất bại: Email đã được sử dụng hoặc thông tin không hợp lệ")            
-            console.log(error) 
+            await authApi.register({
+                fullName: formData.fullName,
+                address: formData.address,
+                email: formData.email, 
+                password: formData.password
+            });
+            toast({ title: "Thành công", description: "Đăng ký thành công! Vui lòng đăng nhập." });
+            router.push("/auth");
+        } catch (error) {
+            toast({ title: "Lỗi", description: "Đăng ký thất bại: Email đã được sử dụng hoặc thông tin không hợp lệ", variant: "destructive" });
         }
     };
 
@@ -110,6 +124,24 @@ export default function Register() {
                                         </div>
                                     </div>
 
+                                    {/* Address */}
+                                    <div className="mb-3">
+                                        <div className="input-group">
+                                            <span className="input-group-text border-0 bg-light">
+                                                <i className="fas fa-map-marker-alt text-muted"></i>
+                                            </span>
+                                            <input 
+                                                type="text" 
+                                                className="form-control border-0 bg-light py-3" 
+                                                placeholder="Nhập địa chỉ"
+                                                value={formData.address} 
+                                                onChange={(e) => handleInputChange('address', e.target.value)}
+                                                required
+                                                style={{ fontSize: '16px' }}
+                                            />
+                                        </div>
+                                    </div>
+
                                     {/* Phone */}
                                     <div className="mb-3">
                                         <div className="input-group">
@@ -128,24 +160,7 @@ export default function Register() {
                                         </div>
                                     </div>
 
-                                    {/* Date of Birth */}
-                                    <div className="mb-3">
-                                        <div className="input-group">
-                                            <span className="input-group-text border-0 bg-light">
-                                                <i className="fas fa-calendar text-muted"></i>
-                                            </span>
-                                            <input 
-                                                type="date" 
-                                                className="form-control border-0 bg-light py-3" 
-                                                placeholder="Chọn ngày sinh"
-                                                value={formData.dateOfBirth} 
-                                                onChange={(e) => handleInputChange('dateOfBirth', e.target.value)}
-                                                max={new Date().toISOString().split('T')[0]}
-                                                required
-                                                style={{ fontSize: '16px' }}
-                                            />
-                                        </div>
-                                    </div>
+                                   
 
                                     {/* Password */}
                                     <div className="mb-3">
@@ -206,12 +221,7 @@ export default function Register() {
                                     </div>
 
                                     {/* Success/Error Message */}
-                                    {authMessage && (
-                                        <div className={`alert ${authMessage.includes('thành công') ? 'alert-success' : 'alert-danger'} d-flex align-items-center mb-4`} role="alert">
-                                            <i className={`fas ${authMessage.includes('thành công') ? 'fa-check-circle' : 'fa-exclamation-triangle'} me-2`}></i>
-                                            <div>{authMessage}</div>
-                                        </div>
-                                    )}
+                                    {/* Đã chuyển sang toast, có thể xóa đoạn này nếu muốn */}
 
                                     {/* Register Button */}
                                     <button 
