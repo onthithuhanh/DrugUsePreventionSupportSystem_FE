@@ -153,4 +153,8 @@ export const authApi = {
         const response = await api.post(`/Course/Register/${courseId}`);
         return response.data;
     },
+    getRegisteredCourses: async () => {
+        const response = await api.get('/CourseRegister');
+        return response.data;
+    },
 }; 

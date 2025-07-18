@@ -32,6 +32,9 @@ export default function UserNav() {
       <Menu.Item key="profile">
         <Link href="/profile">Thông tin cá nhân</Link>
       </Menu.Item>
+      <Menu.Item key="CourseRegister">
+        <Link href="/CourseRegister">Khóa học đã đăng ký</Link>
+      </Menu.Item>
       <Menu.Item key="logout" onClick={handleLogout} danger>
         Đăng xuất
       </Menu.Item>
