@@ -1,9 +1,10 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
-import { Card, Typography, Tag, Button, Skeleton, Divider, Collapse, List } from "antd";
+import { Card, Typography, Tag, Button, Skeleton, Divider, Collapse, List, Form, Input, Checkbox, Modal } from "antd";
 import { authApi } from "@/api/auth";
 import Link from "next/link";
+import { useToast } from "@/hooks/use-toast";
 
 const { Title, Paragraph, Text } = Typography;
 
@@ -44,6 +45,7 @@ interface CourseQuestion {
 
 export default function CourseDetailPage() {
   const { id } = useParams();
+  const { toast } = useToast();
   const [course, setCourse] = useState<Course | null>(null);
   const [loading, setLoading] = useState(false);
   const [questions, setQuestions] = useState<CourseQuestion[]>([]);
@@ -52,6 +54,9 @@ export default function CourseDetailPage() {
   const [showAllQuestions, setShowAllQuestions] = useState(false);
   // State cho xem thêm đáp án từng câu hỏi (dùng object để lưu trạng thái từng câu)
   const [showAllAnswers, setShowAllAnswers] = useState<{ [questionId: number]: boolean }>({});
+  const [addQuestionModal, setAddQuestionModal] = useState(false);
+  const [addLoading, setAddLoading] = useState(false);
+  const [form] = Form.useForm();
 
   useEffect(() => {
     if (!id) return;
@@ -85,6 +90,49 @@ export default function CourseDetailPage() {
     const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([\w-]{11})/);
     return match ? match[1] : null;
   }
+
+  const handleRegisterCourse = async () => {
+    try {
+      await authApi.registerCourse(Number(id));
+      toast({ title: "Thành công", description: "Đăng ký thành công!" });
+    } catch (error: any){
+      let msg = "Đã xảy ra lỗi";
+      if (error?.response?.data?.error) {
+        msg = error.response.data.error;
+      } else if (error?.message) {
+        msg = error.message;
+      }
+      toast({ title: "Lỗi", description: msg, variant: "destructive" });
+    }
+  };
+
+  const handleAddQuestion = () => {
+    form.resetFields();
+    setAddQuestionModal(true);
+  };
+  const handleAddQuestionOk = async () => {
+    try {
+      const values = await form.validateFields();
+      setAddLoading(true);
+      await authApi.createCourseQuestion(Number(id), { questionText: values.questionText });
+      toast({ title: "Thành công", description: "Đã thêm câu hỏi!" });
+      setAddQuestionModal(false);
+      // reload questions
+      let data = await authApi.getCourseQuestions();
+      if (!Array.isArray(data)) data = Array.isArray(data?.items) ? data.items : [];
+      setQuestions(data.filter((q: CourseQuestion) => q.courseId === Number(id)));
+    } catch (error: any) {
+      let msg = "Đã xảy ra lỗi";
+      if (error?.response?.data?.error) {
+        msg = error.response.data.error;
+      } else if (error?.message) {
+        msg = error.message;
+      }
+      toast({ title: "Lỗi", description: msg, variant: "destructive" });
+    } finally {
+      setAddLoading(false);
+    }
+  };
 
   return (
     <div style={{ maxWidth: 900, margin: "0 auto", padding: "32px 0" }}>
@@ -133,7 +181,10 @@ export default function CourseDetailPage() {
       </section>
       {/* CÂU HỎI VÀ ĐÁP ÁN */}
       <section style={{ marginTop: 32 }}>
-        <Title level={3} style={{ color: "#2563eb", marginBottom: 20 }}>Câu hỏi & Đáp án</Title>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 20 }}>
+          <Title level={3} style={{ color: "#2563eb", marginBottom: 0 }}>Câu hỏi & Đáp án</Title>
+          <Button type="primary" onClick={handleAddQuestion}>Thêm câu hỏi</Button>
+        </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 28 }}>
           {(showAllQuestions ? questions : questions.slice(0, 3)).map(q => {
             const showAll = showAllAnswers[q.questionId];
@@ -188,8 +239,23 @@ export default function CourseDetailPage() {
           </div>
         )}
       </section>
+      <Modal
+        open={addQuestionModal}
+        title="Thêm câu hỏi mới"
+        onCancel={() => setAddQuestionModal(false)}
+        onOk={handleAddQuestionOk}
+        okText="Thêm"
+        confirmLoading={addLoading}
+        destroyOnClose
+      >
+        <Form form={form} layout="vertical">
+          <Form.Item name="questionText" label="Nội dung câu hỏi" rules={[{ required: true, message: "Nhập nội dung câu hỏi" }]} initialValue="">
+            <Input />
+          </Form.Item>
+        </Form>
+      </Modal>
       <div style={{ textAlign: "right", marginTop: 40 }}>
-        <Button type="primary" size="large" style={{ borderRadius: 8 }}>Đăng ký khóa học</Button>
+        <Button type="primary" size="large" style={{ borderRadius: 8 }} onClick={handleRegisterCourse}>Đăng ký khóa học</Button>
       </div>
     </div>
   );

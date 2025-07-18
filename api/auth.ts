@@ -120,6 +120,10 @@ export const authApi = {
         const response = await api.post(`/CourseOption/${questionId}`, data);
         return response.data;
     },
+    createCourseQuestion: async (courseId: number, data: { questionText: string }) => {
+        const response = await api.post(`/CourseQuestion/${courseId}`, data);
+        return response.data;
+    },
     // RiskLevel APIs
     getAllRiskLevels: async () => {
         const response = await api.get('/RiskLevel');
@@ -143,6 +147,10 @@ export const authApi = {
     },
     postBlog: async (data: { title: string; content: string }) => {
         const response = await api.post('/Blog/Post-blog', data);
+        return response.data;
+    },
+    registerCourse: async (courseId: number) => {
+        const response = await api.post(`/Course/Register/${courseId}`);
         return response.data;
     },
 }; 
