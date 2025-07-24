@@ -23,7 +23,7 @@ export default function RootLayout({
           <Link href="/">Trang chủ</Link>
           <Link href="/appointments">Lịch hẹn</Link>
           <Link href="/">Tư vấn</Link>
-          <Link href="/courses">Khóa học</Link>
+          <Link href="/course">Khóa học</Link>
           <Link href="/">Tài liệu</Link>
           <Link href="/">Cộng đồng</Link>
           <UserNav />

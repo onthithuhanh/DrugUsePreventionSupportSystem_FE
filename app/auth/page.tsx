@@ -16,7 +16,8 @@ export default function auth() {
         try {
             const response = await authApi.login({email, password})
             localStorage.setItem("user", response) 
-            //console.log(response)               
+            await authApi.getMyProfile()             
+            //console.log(response) 
             router.push("/")   
         } catch (error) {            
             setAuthMessage("Đăng nhập thất bại: Email hoặc mật khẩu không đúng")            

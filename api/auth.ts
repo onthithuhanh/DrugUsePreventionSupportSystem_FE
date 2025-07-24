@@ -143,6 +143,11 @@ export const authApi = {
     },
     getMyProfile: async () => {
         const response = await api.get('/User/MyProfile');
+        localStorage.setItem('userData', JSON.stringify(response.data));
+        return response.data;
+    },
+    updateProfile: async (data: { email: string; fullName: string; address: string; dateOfBirth: string }) => {
+        const response = await api.put('/User/Update-Profile', data);
         return response.data;
     },
     postBlog: async (data: { title: string; content: string }) => {
