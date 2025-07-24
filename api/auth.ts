@@ -141,6 +141,27 @@ export const authApi = {
         const response = await api.delete(`/RiskLevel/Delete/${id}`);
         return response.data;
     },
+    // AgeGroup APIs
+    getAllAgeGroups: async () => {
+        const response = await api.get('/AgeGroup');
+        return response.data;
+    },
+    getAgeGroupById: async (id: number) => {
+        const response = await api.get(`/AgeGroup/${id}`);
+        return response.data;
+    },
+    createAgeGroup: async (data: { name: string; description: string; minAge: number; maxAge: number }) => {
+        const response = await api.post('/AgeGroup', data);
+        return response.data;
+    },
+    updateAgeGroup: async (id: number, data: { name: string; description: string; minAge: number; maxAge: number }) => {
+        const response = await api.put(`/AgeGroup/${id}`, data);
+        return response.data;
+    },
+    deleteAgeGroup: async (id: number) => {
+        const response = await api.delete(`/AgeGroup/Delete/${id}`);
+        return response.data;
+    },
     getMyProfile: async () => {
         const response = await api.get('/User/MyProfile');
         localStorage.setItem('userData', JSON.stringify(response.data));
@@ -160,6 +181,90 @@ export const authApi = {
     },
     getRegisteredCourses: async () => {
         const response = await api.get('/CourseRegister');
+        return response.data;
+    },
+    // AssessmentType APIs
+    getAllAssessmentTypes: async () => {
+        const response = await api.get('/AssessmentType');
+        return response.data;
+    },
+    getAssessmentTypeById: async (id: number) => {
+        const response = await api.get(`/AssessmentType/${id}`);
+        return response.data;
+    },
+    createAssessmentType: async (data: { name: string; description: string }) => {
+        const response = await api.post('/AssessmentType', data);
+        return response.data;
+    },
+    updateAssessmentType: async (id: number, data: { name: string; description: string }) => {
+        const response = await api.put(`/AssessmentType/${id}`, data);
+        return response.data;
+    },
+    deleteAssessmentType: async (id: number) => {
+        const response = await api.delete(`/AssessmentType/Delete/${id}`);
+        return response.data;
+    },
+    // Assessment APIs
+    getAllAssessments: async () => {
+        const response = await api.get('/Assessment');
+        return response.data;
+    },
+    getAssessmentById: async (id: number) => {
+        const response = await api.get(`/Assessment/${id}`);
+        return response.data;
+    },
+    createAssessment: async (data: { title: string; description: string; assessmentType: number; ageGroup: number; createdDate: string; isActive: boolean }) => {
+        const response = await api.post('/Assessment', data);
+        return response.data;
+    },
+    updateAssessment: async (id: number, data: { title: string; description: string; assessmentType: number; ageGroup: number; createdDate: string; isActive: boolean }) => {
+        const response = await api.put(`/Assessment/${id}`, data);
+        return response.data;
+    },
+    deleteAssessment: async (id: number) => {
+        const response = await api.delete(`/Assessment/Delete/${id}`);
+        return response.data;
+    },
+    // AssessmentQuestion APIs
+    getAllAssessmentQuestions: async () => {
+        const response = await api.get('/AssessmentQuestion/GetAll');
+        return response.data;
+    },
+    getAssessmentQuestionById: async (id: number) => {
+        const response = await api.get(`/AssessmentQuestion/${id}`);
+        return response.data;
+    },
+    createAssessmentQuestion: async (data: { assessmentId: number; questionText: string; questionType: string }) => {
+        const response = await api.post('/AssessmentQuestion/Add', data);
+        return response.data;
+    },
+    updateAssessmentQuestion: async (id: number, data: { assessmentId: number; questionText: string; questionType: string }) => {
+        const response = await api.put(`/AssessmentQuestion/Update/${id}`, data);
+        return response.data;
+    },
+    deleteAssessmentQuestion: async (id: number) => {
+        const response = await api.delete(`/AssessmentQuestion/Delete/${id}`);
+        return response.data;
+    },
+    // AssessmentOption APIs
+    getAllAssessmentOptions: async () => {
+        const response = await api.get('/AssessmentOption/GetAll');
+        return response.data;
+    },
+    getAssessmentOptionById: async (id: number) => {
+        const response = await api.get(`/AssessmentOption/${id}`);
+        return response.data;
+    },
+    createAssessmentOption: async (data: { questionId: number; optionText: string; optionValue: number }) => {
+        const response = await api.post('/AssessmentOption/Add', data);
+        return response.data;
+    },
+    updateAssessmentOption: async (id: number, data: { questionId: number; optionText: string; optionValue: number }) => {
+        const response = await api.put(`/AssessmentOption/Update/${id}`, data);
+        return response.data;
+    },
+    deleteAssessmentOption: async (id: number) => {
+        const response = await api.delete(`/AssessmentOption/Delete/${id}`);
         return response.data;
     },
 }; 
