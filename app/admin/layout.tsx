@@ -9,7 +9,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   return (
     <Layout style={{ minHeight: "100vh" }}>
      
-      <Sider breakpoint="xl" collapsedWidth="0" width={230} style={{ backgroundColor: "#001529" }}>
+      <Sider breakpoint="xl" collapsedWidth="0" style={{ backgroundColor: "#001529" }}>
         <div style={{ color: "white", fontWeight: "bold", fontSize: 22, padding: 16, textAlign: "center" }}>
           Admin Panel
         </div>

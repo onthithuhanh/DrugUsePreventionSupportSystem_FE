@@ -43,7 +43,7 @@ export default function Register() {
         }
 
         // Validate required fields
-        if (!formData.fullName || !formData.email || !formData.password || !formData.dateOfBirth || !formData.address) {
+        if (!formData.fullName || !formData.email || !formData.password ||  !formData.address) {
             toast({ title: "Lỗi", description: "Vui lòng nhập đầy đủ thông tin", variant: "destructive" });
             return;
         }
